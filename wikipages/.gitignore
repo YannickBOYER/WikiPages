@@ -1,0 +1,7 @@
+# Scala
+target/
+lib_managed/
+.idea/
+.vscode/
+.bsp/
+.metals/
