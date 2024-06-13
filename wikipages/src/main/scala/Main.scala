@@ -12,6 +12,7 @@ object Main extends App {
     case _            => println("Unable to parse arguments")
   }
 
+  /// Pas trop compris ??
   def parseArguments(args: Array[String]): Option[Config] = {
     val builder = OParser.builder[Config]
     val parser = {

@@ -1,22 +1,19 @@
-import scalaj.http.{HttpRequest, Http}
+import scalaj.http.{HttpRequest, Http, HttpOptions, HttpConstants, HttpResponse}
 import scala.util.Random
 import scala.language.higherKinds
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-/* disable warning + this function does not work
-
 object MockHttpUtils extends HttpUtils {
-  def parse(url: String): HttpRequest = {
-    new HttpRequest(url, "GET", (_,_) => null, Seq.empty, Seq.empty, Seq.empty, None, "UTF-8", 4096, { _: HttpRequest => url }, compress = false, None)
-
+  override def parse(url: String): HttpRequest = new HttpRequest(url, "GET", null, Seq(), Seq(), Seq(), None, "UTF-8", 4096, _.toString, false, None) {
+    override def asString: HttpResponse[String] = {
+      HttpResponse("""{"query": {"search": [{"title": "Test Mock", "wordcount": 10}]}}""", 200, Map.empty)
+    }
   }
 }
-*/
 
 class MainSpec extends AnyFlatSpec with Matchers{
-
   "formatUrlTest" should "return the correct URL" in {
     // Given
     val keyword = "scala"
@@ -77,7 +74,6 @@ class MainSpec extends AnyFlatSpec with Matchers{
     // Then
     result shouldBe Some(Config(keyword = "scala", limit = 10))
   }
-/* not working
 
   "getPagesMock" should "return a Right if the request successes" in {
     // Given
@@ -88,5 +84,4 @@ class MainSpec extends AnyFlatSpec with Matchers{
     // Then
     result.isRight shouldBe true
   }
-*/
 }
