@@ -52,7 +52,7 @@ object Main extends App {
   }
 
   def formatUrl(keyword: String, limit: Int): String = {
-    // string interpolation (I will use it several times in this code)
+    // string interpolation
     s"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=&sroffset=0&list=search&srsearch=$keyword&srlimit=$limit"
   }
 
